@@ -11,6 +11,24 @@
     <title>Clase 0 - Nivel BB</title>
 </head>
 <body>
-    
+
+    <div id="app">
+        <p>{{message}}</p>
+        <h1>Saldo disponible: {{cantidad >= 1 ? cantidad : 'Sin Saldo'}}</h1>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Estoy triunfando',
+                cantidad: 0
+            }
+        });
+    </script>
+
+
+
+
 </body>
 </html>
