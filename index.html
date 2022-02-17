@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +8,115 @@
 
     <!-- VUE CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    
+
     <title>Clase 0 - Nivel BB</title>
 </head>
+
 <body>
 
     <div id="app">
-        <p>{{message}}</p>
-        <h1>Saldo disponible: {{cantidad >= 1 ? cantidad : 'Sin Saldo'}}</h1>
+        <!-- Directivas -->
+        <!-- v-text permite hacer un trabajo similar a la interpolación
+        La interpolación renderiza un fragmento de texto y la directiva
+        v-text en realidad renderiza todo el contenido-->
+        <p v-text="text"></p>
+
+        <!-- v-html permite imprimir código HTML, es el equivalente
+        al innerHTML de JS-->
+        <ul v-html="items"></ul>
+
+        <!-- v-bind permite unir algún valor de nuestra data
+        a un atributo -->
+        <img v-bind:src="photoUrl" v-bind:alt="alt">
+
+        <!-- v-bind dinámico -->
+        <img v-bind:src="photoUrl" v-bind:[key]="alt">
+        
+        <!-- v-bind sirve para cualquier atributo, ejemplo
+        style o class -->
+        <p :style="myStyle">Actualizo mi color</p>
+        
+        <!-- Methods y onClick-->
+        <button type="button" v-on:click="saludar">
+            Mostrar Saludo
+        </button>
+
+        <!-- on click accediendo a la info del evento -->
+        <button type="button" v-on:click="saludarDos($event)">
+            Mostrar Saludo Dos
+        </button>
+
+        <!-- Acceder a data desde los métodos -->
+        <button type="button" v-on:click="showName">
+            Mostrar Nombre
+        </button>
+
+        <!-- propiedades computadas -->
+        <div class="content">
+            {{nombreCompleto}}
+        </div>
+
+        <!-- Desafío Contador -->
+        <p>{{contador}}</p>
+        <button type="button" v-on:click="contador--">Disminuir</button>
+        <button type="button" v-on:click="contador++">Aumentar</button>
+
+
+
+        <!-- <p>{{message}}</p>
+        <h1>Saldo disponible: {{cantidad >= 1 ? cantidad : 'Sin Saldo'}}</h1> -->
     </div>
 
     <script>
-        new Vue({
+        // Instanciar Vue
+        const app = new Vue({
             el: '#app',
-            data: {
-                message: 'Estoy triunfando',
-                cantidad: 0
+            data:{
+                text: 'Clase 1',
+                items: '<li>Mis Servicios</li>',
+                photoUrl: 'https://www.placecage.com/200/300',
+                alt: 'Nicolas Cage',
+                key: 'alt',
+                myStyle: 'color: green; font-size: 25px',
+                firstName: 'Juan',
+                lastName: 'Vidal',
+                contador: 0
+            },
+            methods: {
+                saludar(){
+                    alert('Hola');
+                },
+
+                saludarDos(event){
+                    alert('Coodernadas del botón:' + ' ' + event.screenX + ' ' + event.screenY);
+                },
+
+                showName(){
+                    alert(this.firstName + ' ' + this.lastName);
+                }
+            },
+            computed: {
+                nombreCompleto(){
+                    return this.firstName + ' ' + this.lastName;
+                }
             }
-        });
+        })
+
+
+
+        
+        // new Vue({
+        //     el: '#app',
+        //     data: {
+        //         message: 'Estoy triunfando',
+        //         cantidad: 0
+        //     }
+        // });
     </script>
 
 
 
 
 </body>
+
 </html>
