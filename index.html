@@ -59,8 +59,33 @@
         <!-- Desafío Contador -->
         <p>{{contador}}</p>
         <button type="button" v-on:click="contador--">Disminuir</button>
-        <button type="button" v-on:click="contador++">Aumentar</button>
+        <button type="button" @click="contador++">Aumentar</button>
 
+        <!-- v-for / for of -->
+        <ul>
+            <li v-for="fruta of frutas">
+                {{fruta}}
+            </li>
+        </ul>
+
+        <ol>
+            <li v-for="curso of cursos">
+                {{curso.nombre}} - {{curso.precio}}
+
+                <!-- v-if -->
+
+                <span v-if="curso.disponible === false">
+                    - No hay cupos
+                </span>
+                <span v-else>
+                    - Hay cupos
+                </span>
+            </li>
+        </ol>
+
+        <!-- v-model nos permite conectar directamente nuestro HTML al JS -->
+        <input type="text" v-model="nuevosCursos" @keyup.enter="agregarCurso">
+        <button @click="agregarCurso">Agregar Curso</button>
 
 
         <!-- <p>{{message}}</p>
@@ -80,8 +105,12 @@
                 myStyle: 'color: green; font-size: 25px',
                 firstName: 'Juan',
                 lastName: 'Vidal',
-                contador: 0
-            },
+                contador: 0,
+                frutas: ['Manzana', 'Banana', 'Naranja'],
+                cursos: [{nombre: 'Desarrollo Web', precio: 10000, disponible: true},
+                        {nombre: 'JavaScript', precio: 11000, disponible: false},
+                        {nombre: 'React JS', precio: 13000, disponible: true}]
+            },            
             methods: {
                 saludar(){
                     alert('Hola');
@@ -93,13 +122,26 @@
 
                 showName(){
                     alert(this.firstName + ' ' + this.lastName);
+                },
+
+                agregarCurso(){
+                    this.cursos.push({
+                        nombre: this.nuevosCursos,
+                        precio: 0,
+                        disponible: true
+                    })
+                    this.nuevosCursos = '';
                 }
             },
             computed: {
                 nombreCompleto(){
                     return this.firstName + ' ' + this.lastName;
                 }
-            }
+            },
+            nuevosCursos: '',
+
+
+            
         })
 
 
